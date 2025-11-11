@@ -1,0 +1,56 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environment
+.env
+.venv
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Project specific
+results/
+!results/.gitkeep
+figures/
+!figures/.gitkeep
+logs/
+!logs/.gitkeep
+cache/
+!cache/.gitkeep
+
+# Temporary files
+*.log
+*.tmp
+tmp_*.c
+*.o
+*.exe
+*.out
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data (if large datasets added later)
+*.h5
+*.hdf5
+*.pkl
+*.pickle
