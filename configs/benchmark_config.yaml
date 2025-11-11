@@ -1,0 +1,77 @@
+# Benchmark Configuration for HPC DSPy Project
+
+benchmarks:
+  matrix_multiply:
+    name: "Matrix Multiplication"
+    description: "Compute C = A × B for dense NxN matrices"
+    complexity: "O(n³)"
+    # Larger sizes for meaningful performance differences
+    # 512x512 = 262K elements, 1024x1024 = 1M elements
+    sizes: [512, 1024, 2048]
+    iterations: 30  # Increased from 10 for better statistics
+    warmup: 5       # Increased from 3 for better cache warmup
+    dtype: "float64"
+
+  cholesky:
+    name: "Cholesky Factorization"
+    description: "Decompose symmetric positive-definite matrix A = L × L^T"
+    complexity: "O(n³/3)"
+    # Larger sizes to see optimization differences
+    sizes: [512, 1024, 2048]
+    iterations: 30  # Increased from 10
+    warmup: 5       # Increased from 3
+    dtype: "float64"
+
+  fft:
+    name: "Fast Fourier Transform"
+    description: "Compute discrete Fourier transform"
+    complexity: "O(n log n)"
+    # Larger FFT sizes for meaningful timing
+    # 65536 = 2^16, 262144 = 2^18
+    sizes: [65536, 262144, 1048576]
+    iterations: 30  # Increased from 10
+    warmup: 5       # Increased from 3
+    dtype: "complex128"
+
+# Optimizer configurations
+optimizers:
+  baseline:
+    name: "Baseline (No Optimization)"
+    description: "Direct prediction without DSPy optimization"
+    enabled: true
+
+  bootstrap:
+    name: "BootstrapFewShot"
+    description: "Bootstrap demonstrations from training data"
+    enabled: true
+    max_bootstrapped_demos: 4
+    max_labeled_demos: 16
+    metric_threshold: 0.7
+
+  miprov2:
+    name: "MIPROv2"
+    description: "Multi-prompt instruction proposal optimizer v2"
+    enabled: true
+    num_candidates: 10
+    init_temperature: 1.0
+    num_threads: 4
+
+# Training data configuration
+training:
+  num_examples_per_benchmark: 5
+  include_optimization_hints: true
+  include_performance_targets: true
+
+# Evaluation metrics
+metrics:
+  primary: "execution_time"
+  secondary: ["token_usage", "code_quality"]
+  comparison_baselines: ["mkl", "numpy"]
+
+# Output configuration
+output:
+  save_json: true
+  save_csv: true
+  save_generated_code: true
+  create_visualizations: true
+  visualization_formats: ["png", "pdf"]
